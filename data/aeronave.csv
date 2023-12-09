@@ -1,0 +1,11 @@
+Prefixo, Tipo de Aeronave, Velocidade de Cruzeiro (km/h), Autonomia (km), Empresa de Manutenção, Capacidade de Passageiros, Peso Máximo de Carga (toneladas), Companhia Aérea
+PT456, PequenoPorte, 320, 1600, ABC Maintenance, , , ABC Airlines
+CM789, ComercialDePassageiros, 820, 6000, DEF Maintenance, 180, , 
+CC012, ComercialDeCarga, 650, 3500, GHI Maintenance, , 22, 
+LV777, PequenoPorte, 340, 1700, ABC Maintenance, , , ABC Airlines
+JP111, ComercialDePassageiros, 830, 5800, DEF Maintenance, 200, , 
+KC333, ComercialDeCarga, 720, 3300, GHI Maintenance, , 24, 
+PT987, PequenoPorte, 310, 1550, ABC Maintenance, , , ABC Airlines
+CM654, ComercialDePassageiros, 800, 5500, DEF Maintenance, 170, , 
+CC321, ComercialDeCarga, 680, 3200, GHI Maintenance, , 23, 
+LV888, PequenoPorte, 330, 1650, ABC Maintenance, , , ABC Airlines
