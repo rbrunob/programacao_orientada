@@ -1,6 +1,11 @@
 import { validate } from 'bycontract';
 
-// Definição da classe Piloto
+/**
+ * Representa uma instância da classe Piloto que contém informações sobre um piloto.
+ *
+ * @class
+ * @classdesc Esta classe contém propriedades e métodos relacionados a um piloto.
+ */
 export class Piloto {
     #nome;
     #matricula;
@@ -28,7 +33,10 @@ export class Piloto {
     }
 }
 
-// Definição da classe ServicoPilotos
+/**
+ * Representa uma instância da classe ServicoPilotos que gerencia informações sobre pilotos.
+ * @class
+ */
 export class ServicoPilotos {
     pilotos;
 
@@ -65,3 +73,5 @@ export class ServicoPilotos {
         }));
     }
 }
+
+export const servicoPiloto = new ServicoPilotos();

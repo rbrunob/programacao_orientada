@@ -1,6 +1,9 @@
 import { validate } from 'bycontract';
 
-// Definição da classe Planos
+/**
+ * Representa uma instância da classe Plano que contém informações sobre um plano de voo.
+ * @class
+ */
 export class Plano {
     #IdentificadorPlano;
     #Identificador;
@@ -85,6 +88,10 @@ export class Plano {
     }
 }
 
+/**
+ * Representa uma instância da classe ServicoPlanos que gerencia informações sobre planos de voo.
+ * @class
+ */
 export class ServicoPlanos {
     plano;
 
@@ -138,7 +145,7 @@ export class ServicoPlanos {
         }));
     }
 
-    mostrarTodosOsPilotos() {
+    mostrarTodosOsPlanos() {
         return this.planos.map(plano => ({
             "IdentificadorPlano": plano.IdentificadorPlano,
             "Identificador": plano.Identificador,
@@ -156,3 +163,5 @@ export class ServicoPlanos {
         }));
     }
 }
+
+export const servicoPlanos = new ServicoPlanos();

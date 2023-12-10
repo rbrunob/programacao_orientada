@@ -1,6 +1,9 @@
 import { validate } from 'bycontract';
 
-// Definição da classe Aeronave
+/**
+ * Representa uma aeronave com informações como prefixo, velocidade de cruzeiro e autonomia.
+ * @class
+ */
 export class Aeronave {
     #prefixo;
     #velociadeCruzeiro;
@@ -28,7 +31,10 @@ export class Aeronave {
     }
 }
 
-// Definição da classe AeronaveParticular
+/**
+ * Representa uma aeronave particular que herda da classe Aeronave.
+ * @class
+ */
 export class AeronaveParticular extends Aeronave {
     #respManutencao
 
@@ -46,7 +52,10 @@ export class AeronaveParticular extends Aeronave {
     }
 }
 
-// Definição da classe AeronaveComercial
+/**
+ * Representa uma aeronave comercial que herda da classe Aeronave.
+ * @class
+ */
 export class AeronaveComercial extends Aeronave {
     #nomeCIA
 
@@ -64,7 +73,10 @@ export class AeronaveComercial extends Aeronave {
     }
 }
 
-// Definição da classe AeronavePassageiros
+/**
+ * Representa uma aeronave de passageiros que herda da classe AeronaveComercial.
+ * @class
+ */
 export class AeronavePassageiros extends AeronaveComercial {
     #maxPassageiros
 
@@ -82,7 +94,10 @@ export class AeronavePassageiros extends AeronaveComercial {
     }
 }
 
-// Definição da classe AeronaveCarga
+/**
+ * Representa uma aeronave de carga que herda da classe AeronaveComercial.
+ * @class
+ */
 export class AeronaveCarga extends AeronaveComercial {
     #pesoMax
 
@@ -99,21 +114,36 @@ export class AeronaveCarga extends AeronaveComercial {
     }
 }
 
-// Definição da classe ServicoAeronave
+/**
+ * Serviço para gerenciar informações relacionadas a aeronaves.
+ * @class
+ */
 export class ServicoAeronave {
     aeronaves;
 
+    /**
+  * Construtor da classe ServicoAeronave.
+  * Inicializa a lista de aeronaves.
+  */
     constructor() {
         this.aeronaves = []
     }
 
-    // Método para adicionar uma aeronave
+    /**
+     * Adiciona uma aeronave à lista de aeronaves.
+     * @param {Aeronave} aeronave - Instância da classe Aeronave a ser adicionada.
+     */
     adicionaAeronave(aeronave) {
         validate(aeronave, Aeronave)
 
         this.aeronaves.push(aeronave);
     }
 
+    /**
+   * Recupera informações de uma aeronave com base no prefixo.
+   * @param {string} prefixo - Prefixo único da aeronave.
+   * @returns {Object|null} Informações da aeronave encontrada ou null se não encontrada.
+   */
     recuperaAeronavePorPrefixo(prefixo) {
         const aeronaveEncontrada = this.aeronaves.find(aeronave => aeronave.prefixo === prefixo);
 
@@ -132,7 +162,10 @@ export class ServicoAeronave {
         }
     }
 
-    // Método para listar todas as aeronaves
+    /**
+    * Lista todas as aeronaves com informações formatadas.
+    * @returns {Array<Object>} Lista de informações formatadas das aeronaves.
+    */
     listaTodasAsAeronaves() {
         return this.aeronaves.map(aeronave => ({
             prefixo: aeronave.prefixo,
@@ -145,3 +178,5 @@ export class ServicoAeronave {
         }));
     }
 }
+
+export const servicoAeronaves = new ServicoAeronave();

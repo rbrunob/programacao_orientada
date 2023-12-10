@@ -1,6 +1,11 @@
 import { validate } from 'bycontract';
+import { servicoPlanos } from './Planos.js';
 
-// Definição da classe Aerovias
+/**
+ * Representa uma instância da classe Aerovias que descreve informações sobre uma aerovia.
+ * @class
+ * @classdesc Esta classe contém propriedades e métodos relacionados a um aerovias.
+ */
 export class Aerovias {
     #Identificador;
     #AeroportoDeOrigem;
@@ -10,9 +15,8 @@ export class Aerovias {
     #SlotsDeTempo;
     #EstadoAprovacao;
     #horario;
-    #data;
 
-    constructor(Identificador, AeroportoDeOrigem, AeroportoDeDestino, TamanhoDaAerovia, Altitude, SlotsDeTempo, EstadoAprovacao, horario, data) {
+    constructor(Identificador, AeroportoDeOrigem, AeroportoDeDestino, TamanhoDaAerovia, Altitude, SlotsDeTempo, EstadoAprovacao, horario) {
         this.#Identificador = Identificador
         this.#AeroportoDeOrigem = AeroportoDeOrigem;
         this.#AeroportoDeDestino = AeroportoDeDestino;
@@ -21,7 +25,6 @@ export class Aerovias {
         this.#SlotsDeTempo = SlotsDeTempo;
         this.#EstadoAprovacao = EstadoAprovacao;
         this.#horario = horario;
-        this.#data = data;
     }
 
     // Getters para acessar as informações da aerovia
@@ -56,13 +59,14 @@ export class Aerovias {
     get horario() {
         return this.#horario;
     }
-
-    get data() {
-        return this.#data;
-    }
 }
 
-// Definição da classe ServicoAerovias
+/**
+ * Representa uma instância da classe ServicoAerovias responsável por gerenciar informações sobre aerovias.
+ *
+ * @class
+ * @classdesc Esta classe contém métodos para adicionar, recuperar e listar informações relacionadas a aerovias.
+ */
 export class ServicoAerovias {
     aerovias;
 
@@ -91,8 +95,7 @@ export class ServicoAerovias {
             Altitude: aerovia.Altitude,
             SlotsDeTempo: aerovia.SlotsDeTempo,
             EstadoAprovacao: aerovia.EstadoAprovacao == 1 ? 'Aprovada' : 'Não Aprovada',
-            horario: aerovia.horario,
-            data: aerovia.data
+            horario: aerovia.horario
         }));
     }
 
@@ -117,7 +120,15 @@ export class ServicoAerovias {
     listarAeroviasOcupadasPorData(rota, data) {
         validate(rota, "String");
 
-        const aeroviasEncontradas = this.aerovias.filter(aerovia => aerovia.Identificador === rota && aerovia.data === data && aerovia.EstadoAprovacao == 1);
+        let planos = [];
+        for (let i = 0; i < servicoPlanos.mostrarTodosOsPlanos().length; i++) {
+            planos.push({
+                data: servicoPlanos.mostrarTodosOsPlanos()[i].DataPrevisao,
+                estado: servicoPlanos.mostrarTodosOsPlanos()[i].EstadoAprovacao
+            });
+        }
+
+        const aeroviasEncontradas = this.aerovias.filter(aerovia => aerovia.Identificador === rota && planos.some(plano => plano.data === data && plano.estado === 1) === true && aerovia.EstadoAprovacao == 1);
 
         if (aeroviasEncontradas.length != 0) {
             return aeroviasEncontradas.map(aerovia => ({
@@ -129,7 +140,6 @@ export class ServicoAerovias {
                 SlotsDeTempo: aerovia.SlotsDeTempo,
                 EstadoAprovacao: aerovia.EstadoAprovacao == 1 ? 'Aprovada' : 'Não Aprovada',
                 horario: aerovia.horario,
-                data: aerovia.data
             }));
         } else {
             return 'Rota Disponível, nenhuma aerovia com a mesma rota encontrada nessa data!'
@@ -149,14 +159,13 @@ export class ServicoAerovias {
             SlotsDeTempo: aerovia.SlotsDeTempo,
             EstadoAprovacao: aerovia.EstadoAprovacao == 1 ? 'Aprovada' : 'Não Aprovada',
             horario: aerovia.horario,
-            data: aerovia.data
         }));
     }
 
     listarAltitudesLivres(rota, horario) {
         validate(rota, "String");
 
-        const aeroviasEncontradas = this.aerovias.filter(aerovia => aerovia.Identificador === rota && aerovia.horario === horario);
+        const aeroviasEncontradas = this.aerovias.filter(aerovia => aerovia.Identificador === rota && aerovia.horario === horario && aerovia.EstadoAprovacao == 1);
 
         let aeroviasOcupadas = [];
         aeroviasEncontradas.forEach(aerovia => aeroviasOcupadas.push(aerovia.Altitude))
@@ -186,7 +195,8 @@ export class ServicoAerovias {
             SlotsDeTempo: aerovia.SlotsDeTempo,
             EstadoAprovacao: aerovia.EstadoAprovacao == 1 ? 'Aprovada' : 'Não Aprovada',
             horario: aerovia.horario,
-            data: aerovia.data
         }));
     }
 }
+
+export const servicoAerovias = new ServicoAerovias();
